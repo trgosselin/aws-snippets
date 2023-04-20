@@ -23,17 +23,5 @@ def list_objects(
         jmes_search_value = "Contents[].Key"
     else:
         jmes_search_value = jmes_string
-    data = page_iter.search(jmes_search_value)
-    return data
-
-def _read_pages(page):
-    contents = page['Contents']
-    keys = [c['Key'] for c in contents]
-    return keys
-
-
-if __name__ == "__main__":
-    jmes_str = f"Contents[?contains(Key,'145939')].Key"
-    data = list_objects(bucket_name="ppmi-500-object-store", bucket_prefix="prod", jmes_string=jmes_str)
-    key_list = [d for d in data]
-    print(key_list)
+    key_iter = page_iter.search(jmes_search_value)
+    return key_iter
