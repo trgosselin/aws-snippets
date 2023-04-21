@@ -1,16 +1,16 @@
 import boto3
 import multiprocessing as mp
 from collections.abc import Iterable
+from session import create_session
 
+@create_session
 def list_objects(
         bucket_name, 
         bucket_prefix,
-        profile_name="default", 
-        region_name="us-east-1",
+        session,
         jmes_string="default"
         ):
-    session = boto3.Session(profile_name=profile_name)
-    client = session.client("s3", region_name=region_name)
+    client = session.client("s3")
     paginator = client.get_paginator("list_objects")
     if bucket_prefix == None:
         bucket_prefix = "" 
@@ -25,3 +25,7 @@ def list_objects(
         jmes_search_value = jmes_string
     key_iter = page_iter.search(jmes_search_value)
     return key_iter
+
+if __name__=="__main__":
+    key_iter = list_objects(bucket_name="invicro-quilt", bucket_prefix=None) 
+    print([i for i in key_iter])
