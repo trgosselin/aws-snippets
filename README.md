@@ -2,8 +2,8 @@
 
 ## Example
 ```
-jmes_str = f"Contents[?contains(Key,'145939')].Key"
-data = list_objects(bucket_name="ppmi-500-object-store", bucket_prefix="prod", jmes_string=jmes_str)
-key_list = [d for d in data]
+jmes_str = f"Contents[?contains(Key,'my_object')].Key"
+key_iter = list_objects(bucket_name="my-bucket", bucket_prefix="objects", jmes_string=jmes_str)
+key_list = [key for key in key_iter]
 print(key_list)
 ```
