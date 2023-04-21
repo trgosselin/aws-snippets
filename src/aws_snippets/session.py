@@ -5,4 +5,3 @@ def create_session(function, profile_name="default", region_name="us-east-1"):
         session = boto3.Session(profile_name=profile_name)
         return function(session=session, **kwargs)
     return session_wrapper
-

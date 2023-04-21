@@ -1,7 +1,4 @@
-import boto3
-import multiprocessing as mp
-from collections.abc import Iterable
-from session import create_session
+from .session import create_session
 
 @create_session
 def list_objects(
@@ -25,7 +22,3 @@ def list_objects(
         jmes_search_value = jmes_string
     key_iter = page_iter.search(jmes_search_value)
     return key_iter
-
-if __name__=="__main__":
-    key_iter = list_objects(bucket_name="invicro-quilt", bucket_prefix=None) 
-    print([i for i in key_iter])
