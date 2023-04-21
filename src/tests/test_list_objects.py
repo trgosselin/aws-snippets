@@ -24,12 +24,17 @@ def test_list_objects(s3_fixture):
     for k in keys:
         s3_fixture.put_object(Bucket=bucket_name, Key=k, Body=body)
 
-    data = list_objects(
-        bucket_name=bucket_name,
-        bucket_prefix=None,
-        )  
+    data = list_objects(bucket_name=bucket_name)  
     keys = [d for d in data]
 
     assert isinstance(data, types.GeneratorType)
     assert all(isinstance(i, str) for i in keys)
+    
+    data2 = list_objects(
+        bucket_name=bucket_name, 
+        jmes_string="Contents[?contains(Key, 'test_object_2')].Key"
+        )
+    keys2 = [d for d in data2]
+
+    assert keys2[0] == "test_object_2"
     

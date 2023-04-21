@@ -3,14 +3,12 @@ from .session import create_session
 @create_session
 def list_objects(
         bucket_name, 
-        bucket_prefix,
         session,
+        bucket_prefix="",
         jmes_string="default"
         ):
     client = session.client("s3")
     paginator = client.get_paginator("list_objects")
-    if bucket_prefix == None:
-        bucket_prefix = "" 
     parameters = {
         "Bucket": bucket_name,
         "Prefix": bucket_prefix,
