@@ -7,6 +7,9 @@ def list_objects(
         bucket_prefix="",
         jmes_string="default"
         ):
+    """
+    List all objects in a bucket with a prefix.
+    """
     client = session.client("s3")
     paginator = client.get_paginator("list_objects")
     parameters = {
